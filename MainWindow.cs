@@ -36,6 +36,7 @@ namespace Backuper4000
 
         private void startButton_Click(object sender, EventArgs e)
         {
+            logTextBox.Enabled = true;
             logTextBox.Clear();
             BackupTools.StartBackup(sourcePathTextBox.Text, destinationPathTextBox.Text, Log);
         }
