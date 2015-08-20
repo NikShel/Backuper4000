@@ -36,23 +36,14 @@ namespace Backuper4000
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                Backuper.CopyDirectory(sourcePathTextBox.Text, destinationPathTextBox.Text);
-            }
-            catch (Exception error)
-            {
-                Log(error.Message);
-                Log("\n\nSTACKTRACE");
-                Log(error.StackTrace);
-            }
-            Log("Backup finished");
+            logTextBox.Clear();
+            BackupTools.StartBackup(sourcePathTextBox.Text, destinationPathTextBox.Text, Log);
         }
 
         public void Log(string message)
         {
-            if (!message.EndsWith("\n"))
-                message += '\n';
+            if (!message.EndsWith(Environment.NewLine))
+                message += Environment.NewLine;
             logTextBox.AppendText(message);
         }
 

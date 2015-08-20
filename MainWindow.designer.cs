@@ -44,7 +44,7 @@
             this.sourcePathButton.Location = new System.Drawing.Point(251, 23);
             this.sourcePathButton.Name = "sourcePathButton";
             this.sourcePathButton.Size = new System.Drawing.Size(75, 22);
-            this.sourcePathButton.TabIndex = 0;
+            this.sourcePathButton.TabIndex = 1;
             this.sourcePathButton.Text = "Обзор";
             this.sourcePathButton.UseVisualStyleBackColor = true;
             this.sourcePathButton.Click += new System.EventHandler(this.sourcePathButton_Click);
@@ -93,10 +93,10 @@
             // 
             // logTextBox
             // 
-            this.logTextBox.AcceptsReturn = true;
             this.logTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.logTextBox.Cursor = System.Windows.Forms.Cursors.Default;
             this.logTextBox.Location = new System.Drawing.Point(374, 25);
             this.logTextBox.Multiline = true;
             this.logTextBox.Name = "logTextBox";
@@ -140,6 +140,7 @@
             this.Controls.Add(this.sourceLabel);
             this.Controls.Add(this.sourcePathTextBox);
             this.Controls.Add(this.sourcePathButton);
+            this.MinimumSize = new System.Drawing.Size(619, 288);
             this.Name = "MainWindow";
             this.Text = "Backuper 4000";
             this.ResumeLayout(false);

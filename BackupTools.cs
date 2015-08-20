@@ -7,9 +7,37 @@ using System.IO;
 
 namespace Backuper4000
 {
-    class Backuper
+    enum MessageType
     {
-        public static void CopyDirectory(string sourcePath, string destinationPath)
+        Success,
+        Information,
+        Error,
+        CriticalError
+    }
+
+    class BackupTools
+    {
+        public static void StartBackup(string sourcePath, string destinationPath, Action<string> log)
+        {
+            bool isSuccessfull = true;
+            try
+            {
+               CopyDirectory(sourcePath, destinationPath, log);
+            }
+            catch (Exception error)
+            {
+                isSuccessfull = false;
+                log("ERROR");
+                log(error.Message);
+                log("\n\nSTACKTRACE");
+                log(error.StackTrace);
+            }
+
+            if (isSuccessfull)
+                log("BACKUP FINISHED SUCCESSFULLY");
+        }
+
+        public static void CopyDirectory(string sourcePath, string destinationPath, Action<string> log)
         {
             if (!sourcePath.EndsWith(@"\"))
                 sourcePath += @"\";
@@ -21,7 +49,7 @@ namespace Backuper4000
                 string currentRelativePath = directoryPaths.Pop();
                 string currentSourcePath = Path.Combine(sourcePath, currentRelativePath);
                 string currentDestinationPath = Path.Combine(destinationPath, currentRelativePath);
-                //Directory.CreateDirectory(currentDestinationPath);
+                Directory.CreateDirectory(currentDestinationPath);
 
                 foreach (string directoryPath in Directory.EnumerateDirectories(currentSourcePath))
                 {
@@ -30,6 +58,7 @@ namespace Backuper4000
 
                 foreach (string filePath in Directory.EnumerateFiles(currentSourcePath))
                 {
+                    log(String.Format("<{0}>", Path.GetFileName(filePath)));
                     File.Copy(filePath, Path.Combine(currentDestinationPath, Path.GetFileName(filePath)));
                 }
             }
